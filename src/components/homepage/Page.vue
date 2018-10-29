@@ -45,7 +45,7 @@ export default {
       startScroll: 0,
       touching: false,
       isLoadMoreShow: false,
-      loadWords: "正在刷新",
+      loadWords: "松开刷新页面",
 
       page: {
         totalCount: 0,
@@ -70,7 +70,7 @@ export default {
     }
     this.page.totalPageNum = pageNum;
     this.getPageData();
-    //window.addEventListener("scroll", this.scrollFn);
+    window.addEventListener("scroll", this.scrollFn);
   },
 
   methods: {
@@ -96,10 +96,11 @@ export default {
       if (diff > 0) {
         e.preventDefault();
       }
-      this.top = Math.floor(diff * 0.25) + (this.state === 2 ? 40 : 0);
+      this.top = Math.pow(diff, 0.8) + (this.state === 2 ? 40 : 0);
+
       // 改变顶部div的显隐状态和里面的话
       if (this.top >= 40) {
-        this.loadWords = "正在刷新";
+        this.loadWords = "松开刷新页面";
         this.isLoadMoreShow = true;
       }
     },
@@ -120,8 +121,7 @@ export default {
         this.state = 0;
         this.top = 0;
       }
-      // 判断touch松开后，是否为翻页动作
-      this.scrollFn();
+      
     },
 
     // 刷新
@@ -151,6 +151,7 @@ export default {
 
     // 判定翻页动作
     scrollFn: function() {
+      if(document.documentElement.scrollTop == 0) return;
       // 真实内容的高度
       let pageHeight = Math.max(
         document.body.scrollHeight,
@@ -172,7 +173,8 @@ export default {
         0;
 
       let pos = pageHeight - viewportHeight - scrollHeight;
-      if (pos < 20 && this.startScroll > 0) {
+
+      if (pos < 20 && scrollHeight != 0 ) {
         this.nextPage();
       }
     },
