@@ -127,14 +127,13 @@ export default {
 
     // 刷新
     refresh: function() {
-      this.num++;
       this.loadWords = "刷新成功";
-      for (let i = 20 + this.num; i < 23 + this.num; i++) {
-        this.page.data.unshift({
+      for (let i = 0 + this.num; i < 3 + this.num; i++) {
+        this.data.unshift({
           title: "为什么抖音app里帅哥美女那么多？new",
           headshot:
             "https://tse1.mm.bing.net/th?id=OIP.7tHmoR_mte6veEPpG4dpRgAAAA&pid=Api&w=350&h=320&rs=1",
-          name: "知乎知乎 new" + (i - 20),
+          name: "知乎知乎 new" + i,
           images: [
             "http://p0.qhimgs4.com/t014104515001404918.jpg",
             "http://p0.qhimgs4.com/t014104515001404918.jpg"
@@ -145,8 +144,11 @@ export default {
           commentNum: 2400 - i * 50
         });
       }
-      this.page.pageNum = 0;
+      this.page.data = [];
+      this.page.pageNum = 1;
+      this.getPageData();
       this.isLoadMoreShow = false;
+      this.num = this.num + 3;
     },
 
     // 判定翻页动作
