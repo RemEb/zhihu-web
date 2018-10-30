@@ -1,6 +1,6 @@
 <template>
     <div>
-        <strong>为什么抖音app里帅哥美女那么多</strong>
+        <strong>{{contentData.title}}</strong>
         <div class="level  is-mobile">
             <div class="level-item"><img :src="contentData.images[0]" class="image is-128x128"></div>
             <div class="level-item"> <img :src="contentData.images[1]" class="image is-128x128"></div>
@@ -29,6 +29,6 @@ export default {
   -webkit-box-orient: vertical;
 }
 strong {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 </style>

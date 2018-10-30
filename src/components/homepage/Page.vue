@@ -23,6 +23,7 @@ export default {
     let data = [];
     for (let i = 0; i < 20; i++) {
       data.push({
+        title: "为什么抖音app里帅哥美女那么多？",
         headshot:
           "https://tse1.mm.bing.net/th?id=OIP.7tHmoR_mte6veEPpG4dpRgAAAA&pid=Api&w=350&h=320&rs=1",
         name: "知乎知乎" + i,
@@ -46,6 +47,7 @@ export default {
       touching: false,
       isLoadMoreShow: false,
       loadWords: "松开刷新页面",
+      num: 0,
 
       page: {
         totalCount: 0,
@@ -121,37 +123,35 @@ export default {
         this.state = 0;
         this.top = 0;
       }
-      
     },
 
     // 刷新
     refresh: function() {
+      this.num++;
       this.loadWords = "刷新成功";
-      this.data = [];
-      for (let i = 0; i < 20; i++) {
-        this.data.push({
+      for (let i = 20 + this.num; i < 23 + this.num; i++) {
+        this.page.data.unshift({
+          title: "为什么抖音app里帅哥美女那么多？new",
           headshot:
             "https://tse1.mm.bing.net/th?id=OIP.7tHmoR_mte6veEPpG4dpRgAAAA&pid=Api&w=350&h=320&rs=1",
-          name: "知乎知乎" + i,
+          name: "知乎知乎 new" + (i - 20),
           images: [
             "http://p0.qhimgs4.com/t014104515001404918.jpg",
             "http://p0.qhimgs4.com/t014104515001404918.jpg"
           ],
           words:
             "用三张图说明一切，前方高能！！！！！！胆小者、心理承受能力差的就别忘下看了。（抱歉抱歉抱歉抱歉，你们在。。。）",
-          starNum: 11100 - i * 100,
-          commentNum: 2400 - i * 100
+          starNum: 11100 - i * 50,
+          commentNum: 2400 - i * 50
         });
       }
-      this.page.data = [];
-      this.page.pageNum = 1;
-      this.getPageData();
+      this.page.pageNum = 0;
       this.isLoadMoreShow = false;
     },
 
     // 判定翻页动作
     scrollFn: function() {
-      if(document.documentElement.scrollTop == 0) return;
+      if (document.documentElement.scrollTop == 0) return;
       // 真实内容的高度
       let pageHeight = Math.max(
         document.body.scrollHeight,
@@ -174,7 +174,7 @@ export default {
 
       let pos = pageHeight - viewportHeight - scrollHeight;
 
-      if (pos < 20 && scrollHeight != 0 ) {
+      if (pos < 20 && scrollHeight != 0) {
         this.nextPage();
       }
     },
