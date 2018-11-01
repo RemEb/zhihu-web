@@ -77,7 +77,7 @@ export default {
 
   methods: {
     // 绑定touchstart
-    touchStart(e) {
+    touchStart: function(e) {
       // 记录下触碰的Y坐标
       this.startY = e.targetTouches[0].pageY;
       // 记录下最开始scrolltop的位置，后面用来判断下拉情况是否应该刷新
@@ -87,7 +87,7 @@ export default {
     },
 
     // 绑定touchmove
-    touchMove(e) {
+    touchMove: function(e) {
       // 设置条件，只有当开关为true且起始点击scrolltop为0时才能继续运行函数
       if (!this.touching || document.documentElement.scrollTop > 0) {
         return;
@@ -108,7 +108,7 @@ export default {
     },
 
     // 绑定touchend
-    touchEnd() {
+    touchEnd: function() {
       this.touching = false;
       // 在刷新状态中
       if (this.state === 2) {
@@ -140,8 +140,8 @@ export default {
           ],
           words:
             "用三张图说明一切，前方高能！！！！！！胆小者、心理承受能力差的就别忘下看了。（抱歉抱歉抱歉抱歉，你们在。。。）",
-          starNum: 11100 - i * 50,
-          commentNum: 2400 - i * 50
+          starNum: 11100 - i * 100,
+          commentNum: 2400 - i * 5
         });
       }
       this.page.data = [];
